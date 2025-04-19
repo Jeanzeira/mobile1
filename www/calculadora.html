@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .calculadora {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 300px;
+      width: 100%;
+      margin: auto;
+    }
+
+    .tela {
+      width: 100%;
+      height: 60px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .botoes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .botoes button {
+      padding: 20px;
+      font-size: 18px;
+    }
+    
+    /* Estilo do botão home (igual aos outros arquivos) */
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #22c55e;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+    }
+    
+    .home-button:hover {
+      background-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+    
+    <div class="navbar">
+        <a href="index.html">Início</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="navegador.html">Navegador</a>
+        <a href="jogo.html">Jogo da Velha</a>
+        <a href="tarefas.html">Lista de Tarefas</a>
+    </div>
+
+  <div class="container">
+    <h1>Calculadora</h1>
+    <div class="calculadora">
+      <input type="text" id="tela" class="tela" readonly>
+      <div class="botoes">
+        <button onclick="adicionar('7')">7</button>
+        <button onclick="adicionar('8')">8</button>
+        <button onclick="adicionar('9')">9</button>
+        <button onclick="adicionar('/')">/</button>
+
+        <button onclick="adicionar('4')">4</button>
+        <button onclick="adicionar('5')">5</button>
+        <button onclick="adicionar('6')">6</button>
+        <button onclick="adicionar('*')">*</button>
+
+        <button onclick="adicionar('1')">1</button>
+        <button onclick="adicionar('2')">2</button>
+        <button onclick="adicionar('3')">3</button>
+        <button onclick="adicionar('-')">-</button>
+
+        <button onclick="adicionar('0')">0</button>
+        <button onclick="adicionar('.')">.</button>
+        <button onclick="calcular()">=</button>
+        <button onclick="adicionar('+')">+</button>
+
+        <button onclick="limpar()" style="grid-column: span 4; background-color: #ef4444;">C</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão de home flutuante (igual aos outros arquivos) -->
+  <div class="home-button" onclick="window.location.href='index.html'">
+    ⌂
+  </div>
+
+  <script>
+    function adicionar(valor) {
+      document.getElementById("tela").value += valor;
+    }
+
+    function calcular() {
+      try {
+        const resultado = eval(document.getElementById("tela").value);
+        document.getElementById("tela").value = resultado;
+      } catch {
+        document.getElementById("tela").value = "Erro";
+      }
+    }
+
+    function limpar() {
+      document.getElementById("tela").value = "";
+    }
+  </script>
+</body>
+</html>

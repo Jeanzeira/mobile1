@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Principal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafb;
+    }
+  
+    /* Estilo para o conteúdo principal */
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .menu-item {
+      background-color: #22c55e;
+      color: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .menu-item:hover {
+      background-color: #16a34a;
+    }
+    
+    /* Estilo apenas para o novo botão de home */
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #22c55e;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+    }
+    
+    .home-button:hover {
+      background-color: #16a34a;
+    }
+  </style>
+  
+</head>
+<body>
+  <!-- Barra de navegação -->
+  <div class="navbar">
+    <a href="index.html">Início</a>
+    <a href="calculadora.html">Calculadora</a>
+    <a href="navegador.html">Navegador</a>
+    <a href="jogo.html">Jogo da Velha</a>
+    <a href="tarefas.html">Lista de Tarefas</a>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="container">
+    <h1>Bem-vindo ao App!</h1>
+    <p>Escolha uma das opções abaixo para começar:</p>
+
+    <div class="menu-item" onclick="window.location.href='calculadora.html'">Calculadora Básica</div>
+    <div class="menu-item" onclick="window.location.href='navegador.html'">Navegador</div>
+    <div class="menu-item" onclick="window.location.href='jogo.html'">Jogo da Velha</div>
+    <div class="menu-item" onclick="window.location.href='tarefas.html'">Lista de Tarefas</div>
+  </div>
+
+  <!-- Botão de home flutuante -->
+  <div class="home-button" onclick="window.location.href='index.html'">
+    ⌂
+  </div>
+
+</body>
+</html>

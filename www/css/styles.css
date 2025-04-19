@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    flex-direction: column;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    color: #111827;
+  }
+  
+ /* Barra de navegação fixada no topo */
+ .navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #2563eb;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+    margin: 0 10px;
+  }
+
+  .navbar a:hover {
+    background-color: #1d4ed8;
+  }
+
+  /* Adicionar padding no corpo para não sobrepor a navbar */
+  body {
+    padding-top: 60px; /* Ajuste para dar espaço para a barra de navegação */
+  }
+
+  .container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  input, button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #f9fafb;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  li button {
+    background-color: #ef4444;
+    margin-left: 8px;
+  }
+  
+  li button:hover {
+    background-color: #dc2626;
+  }
+  

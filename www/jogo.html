@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo da Velha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .tabuleiro {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .celula {
+      width: 100px;
+      height: 100px;
+      background-color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    
+    /* Estilo do botão home (igual ao primeiro arquivo) */
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #22c55e;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+    }
+    
+    .home-button:hover {
+      background-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Início</a>
+    <a href="calculadora.html">Calculadora</a>
+    <a href="navegador.html">Navegador</a>
+    <a href="jogo.html">Jogo da Velha</a>
+    <a href="tarefas.html">Lista de Tarefas</a>
+  </div>
+
+  <div class="container">
+    <h1>Jogo da Velha</h1>
+    <div class="tabuleiro" id="tabuleiro"></div>
+    <div class="status" id="status"></div>
+    <button onclick="resetar()">Reiniciar</button>
+  </div>
+
+  <!-- Botão de home flutuante (igual ao primeiro arquivo) -->
+  <div class="home-button" onclick="window.location.href='index.html'">
+    ⌂
+  </div>
+
+  <script>
+    let jogadorAtual = "X";
+    let tabuleiro = ["", "", "", "", "", "", "", "", ""];
+    let fimDeJogo = false;
+
+    function desenharTabuleiro() {
+      const tab = document.getElementById("tabuleiro");
+      tab.innerHTML = "";
+
+      tabuleiro.forEach((valor, i) => {
+        const celula = document.createElement("div");
+        celula.classList.add("celula");
+        celula.textContent = valor;
+        celula.onclick = () => jogar(i);
+        tab.appendChild(celula);
+      });
+
+      atualizarStatus();
+    }
+
+    function jogar(index) {
+      if (tabuleiro[index] === "" && !fimDeJogo) {
+        tabuleiro[index] = jogadorAtual;
+        if (verificarVitoria()) {
+          document.getElementById("status").textContent = `Jogador ${jogadorAtual} venceu!`;
+          fimDeJogo = true;
+        } else if (tabuleiro.every(c => c !== "")) {
+          document.getElementById("status").textContent = "Empate!";
+          fimDeJogo = true;
+        } else {
+          jogadorAtual = jogadorAtual === "X" ? "O" : "X";
+          atualizarStatus();
+        }
+        desenharTabuleiro();
+      }
+    }
+
+    function verificarVitoria() {
+      const combinacoes = [
+        [0,1,2], [3,4,5], [6,7,8], // linhas
+        [0,3,6], [1,4,7], [2,5,8], // colunas
+        [0,4,8], [2,4,6]           // diagonais
+      ];
+
+      return combinacoes.some(comb => {
+        const [a, b, c] = comb;
+        return tabuleiro[a] && tabuleiro[a] === tabuleiro[b] && tabuleiro[a] === tabuleiro[c];
+      });
+    }
+
+    function atualizarStatus() {
+      if (!fimDeJogo) {
+        document.getElementById("status").textContent = `Vez do jogador ${jogadorAtual}`;
+      }
+    }
+
+    function resetar() {
+      tabuleiro = ["", "", "", "", "", "", "", "", ""];
+      jogadorAtual = "X";
+      fimDeJogo = false;
+      desenharTabuleiro();
+    }
+
+    document.addEventListener("DOMContentLoaded", desenharTabuleiro);
+  </script>
+</body>
+</html>
