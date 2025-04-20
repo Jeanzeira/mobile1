@@ -77,8 +77,7 @@
       background-color: #ef4444;
       color: white;
     }
-    
-    /* Estilo do botão home (igual aos outros arquivos) */
+
     .home-button {
       position: fixed;
       bottom: 20px;
@@ -96,7 +95,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s;
     }
-    
+
     .home-button:hover {
       background-color: #16a34a;
     }
@@ -104,13 +103,13 @@
 </head>
 <body>
 
-    <div class="navbar">
-        <a href="index.html">Início</a>
-        <a href="calculadora.html">Calculadora</a>
-        <a href="navegador.html">Navegador</a>
-        <a href="jogo.html">Jogo da Velha</a>
-        <a href="tarefas.html">Lista de Tarefas</a>
-      </div>
+  <div class="navbar">
+    <a href="index.html">Início</a>
+    <a href="calculadora.html">Calculadora</a>
+    <a href="navegador.html">Navegador</a>
+    <a href="jogo.html">Jogo da Velha</a>
+    <a href="tarefas.html">Lista de Tarefas</a>
+  </div>
 
   <div class="container">
     <h1>Lista de Tarefas</h1>
@@ -121,16 +120,72 @@
     <ul id="listaTarefas"></ul>
   </div>
 
-  <!-- Botão de home flutuante (igual aos outros arquivos) -->
   <div class="home-button" onclick="window.location.href='index.html'">
     ⌂
   </div>
 
   <script>
-    let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+    let tarefas = [];
 
-    function salvar() {
-      localStorage.setItem("tarefas", JSON.stringify(tarefas));
+    async function carregarTarefas() {
+      try {
+        const resposta = await fetch('http://localhost:3000/api/tasks');
+        tarefas = await resposta.json();
+        renderizarTarefas();
+      } catch (erro) {
+        console.error('Erro ao carregar tarefas:', erro);
+      }
+    }
+
+    async function adicionarTarefa() {
+      const input = document.getElementById("novaTarefa");
+      const texto = input.value.trim();
+      if (texto !== "") {
+        try {
+          await fetch('http://localhost:3000/api/tasks', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ texto })
+          });
+          input.value = "";
+          carregarTarefas();
+        } catch (erro) {
+          console.error('Erro ao adicionar tarefa:', erro);
+        }
+      }
+    }
+
+    async function editarTarefa(index) {
+      const novaDescricao = prompt("Editar tarefa:", tarefas[index].texto);
+      if (novaDescricao !== null && novaDescricao.trim() !== "") {
+        try {
+          await fetch(`http://localhost:3000/api/tasks/${tarefas[index].id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ texto: novaDescricao.trim() })
+          });
+          carregarTarefas();
+        } catch (erro) {
+          console.error('Erro ao editar tarefa:', erro);
+        }
+      }
+    }
+
+    async function excluirTarefa(index) {
+      if (confirm("Tem certeza que deseja excluir esta tarefa?")) {
+        try {
+          await fetch(`http://localhost:3000/api/tasks/${tarefas[index].id}`, {
+            method: 'DELETE'
+          });
+          carregarTarefas();
+        } catch (erro) {
+          console.error('Erro ao excluir tarefa:', erro);
+        }
+      }
     }
 
     function renderizarTarefas() {
@@ -139,7 +194,7 @@
       tarefas.forEach((tarefa, index) => {
         const li = document.createElement("li");
         li.innerHTML = `
-          <span>${tarefa}</span>
+          <span>${tarefa.texto}</span>
           <div class="botoes-editar">
             <button class="editar" onclick="editarTarefa(${index})">Editar</button>
             <button class="excluir" onclick="excluirTarefa(${index})">Excluir</button>
@@ -148,36 +203,7 @@
         lista.appendChild(li);
       });
     }
-
-    function adicionarTarefa() {
-      const input = document.getElementById("novaTarefa");
-      const valor = input.value.trim();
-      if (valor !== "") {
-        tarefas.push(valor);
-        salvar();
-        renderizarTarefas();
-        input.value = "";
-      }
-    }
-
-    function editarTarefa(index) {
-      const nova = prompt("Editar tarefa:", tarefas[index]);
-      if (nova !== null && nova.trim() !== "") {
-        tarefas[index] = nova.trim();
-        salvar();
-        renderizarTarefas();
-      }
-    }
-
-    function excluirTarefa(index) {
-      if (confirm("Tem certeza que deseja excluir esta tarefa?")) {
-        tarefas.splice(index, 1);
-        salvar();
-        renderizarTarefas();
-      }
-    }
-
-    renderizarTarefas();
+    carregarTarefas();
   </script>
 </body>
 </html>

@@ -4,13 +4,15 @@
     "description": "Backend para o aplicativo mobile",
     "main": "app.js",
     "scripts": {
-      "start": "node app.js",
-      "dev": "nodemon app.js"
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "create_database": "node models/setupDatabase.js"
     },
     "dependencies": {
-      "express": "^4.18.2",
-      "pg": "^8.11.3",
-      "cors": "^2.8.5",
-      "body-parser": "^1.20.2"
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "pg": "^8.11.3",
+        "server": "file:"
     }
-  }
+}
